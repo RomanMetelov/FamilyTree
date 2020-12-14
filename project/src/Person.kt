@@ -4,25 +4,31 @@ class Person(
     var siblings: Array<Person>? = null
 ) {
 
-    var amountOfAllRelatives = 0
-    //var listOfRelatives: MutableList<Person> = mutableListOf<Person>() //never used
+    override fun toString(): String {
+        return this.name
+    }
 
-    fun countAmountOfAllRelatives() {
-        //var total: Int = 0 //never used
+    var amountOfAllRelatives = 0
+    var listOfRelatives: MutableList<Person> = mutableListOf<Person>()
+
+    fun createListRelativesOf(person: Person) {
+        //tree traversal, form a list of all relatives and counting of them
         this.mother?.let {
-            amountOfAllRelatives++
-            it.countAmountOfAllRelatives()
+            person.listOfRelatives.add(it)
+            person.amountOfAllRelatives++
+            it.createListRelativesOf(person)
         }
         this.father?.let {
-            amountOfAllRelatives++
-            it.countAmountOfAllRelatives()
+            person.listOfRelatives.add(it)
+            person.amountOfAllRelatives++
+            it.createListRelativesOf(person)
         }
         this.siblings?.let {
             it.forEach {
-                amountOfAllRelatives++
-                it.countAmountOfAllRelatives()
+                person.listOfRelatives.add(it)
+                person.amountOfAllRelatives++
+                it.createListRelativesOf(person)
             }
         }
     }
 }
-

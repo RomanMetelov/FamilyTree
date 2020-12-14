@@ -1,7 +1,7 @@
 fun main() {
     val human: Person = getMe()
-    println(human.name)
-    println(human.amountOfAllRelatives)
+    human.createListRelativesOf(human)
+    println("I have ${human.amountOfAllRelatives} relatives: ${human.listOfRelatives.joinToString(postfix = ".")}")
 
 }
 
